@@ -1,35 +1,48 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import RepetitionExercise from "./components/RepetitionExercise";
+import DurationExercise from "./components/DurationExercise";
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [chosenExercise, setChosenExercise] = useState(null);
+  let exercises = [
+    {name: "Push Ups", type: "repetition"},
+    {name: "Squats", type: "repetition"},
+    {name: "Planks", type: "duration"},
+    {name: "Running", type: "duration"},
+  ];
 
+  let renExercise = () => {
+    if (chosenExercise === null) {
+    return (
+      <div className="menu">
+        <h2>Choose your Challenge</h2>
+        {exercises.map((exercise, index) => (
+            <button
+              key={index}
+              className="exercise-button"
+              onClick={() => setChosenExercise(exercise)}
+              >
+              {exercise.name} ({exercise.type})
+            </button>
+          ))}
+      </div>
+    );
+  } 
+
+  if (chosenExercise.type === "repetition") {
+    return <RepetitionExercise name={chosenExercise.name} />;
+  }
+  if (chosenExercise.type === "duration") {
+    return <DurationExercise name={chosenExercise.name} />;
+  }
+};
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="app">
+      <h1>Body Craze</h1>
+      {renExercise()}
+    </div>
+  );
 }
 
 export default App
