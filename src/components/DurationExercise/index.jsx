@@ -14,13 +14,13 @@ function DurationExercise({name}) {
     return () => clearInterval(interval);
     }, [isRunning]);
   
-    const mins = Math.floor(seconds / 60).toString();
-    const seconds = (seconds % 60).toString();
+    const mins = Math.floor(secs / 60).toString().padStart(2,0);
+    const secondsDisplay = (secs % 60).toString().padStart(2,0);
   
   return (
     <div>
       <h3>{name}</h3>
-      <h4>{mins}:{secs}</h4>
+      <h4>{mins}:{secondsDisplay}</h4>
       <button onClick={() => setIsRunning(true)}> Start
       </button>
 
